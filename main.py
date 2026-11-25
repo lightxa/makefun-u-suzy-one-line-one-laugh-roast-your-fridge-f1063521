@@ -1,11 +1,14 @@
-"""One Line, One Laugh: Roast Your Fridge.
+"""One line, one laugh: a roast aimed at my own fridge.
 
-Writes a single original roast line about the entrant's own fridge
-to /output/entry.txt. Standard library only, deterministic, no network.
+This program writes exactly one original joke line to
+/output/entry.txt. It uses only the Python standard library,
+produces the same output on every run, and never touches
+the network.
 
-The roast targets one specific, recognisable detail: the ice maker,
-which produces cubes so slowly that each one feels hand-made for
-someone important. The twist lands in the last few words.
+The joke picks one small, everyday annoyance, an ice maker
+that drips out cubes at a glacial pace, and stretches it
+into a grand image: every single cube treated like it is
+trying out for a drink fit for royalty.
 """
 
 import os
@@ -17,12 +20,13 @@ ROAST = (
 
 
 def main() -> None:
-    """Write the roast line to /output/entry.txt, enforcing the gate."""
+    """Write the roast line out, checking the competition gate first."""
     line = ROAST.strip()
     assert "\n" not in line, "roast must be a single line"
     assert 1 <= len(line) <= 200, "roast must be 1 to 200 characters"
     os.makedirs("/output", exist_ok=True)
-    open("/output/entry.txt", "w", encoding="utf-8").write(line)
+    with open("/output/entry.txt", "w", encoding="utf-8") as handle:
+        handle.write(line)
 
 
 if __name__ == "__main__":
